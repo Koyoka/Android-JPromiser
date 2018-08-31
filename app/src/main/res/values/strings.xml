@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">JPromiserDemo</string>
+
+    <string-array name="fragmentMenu">
+        <item>=====================================================================</item>
+        <item>activity:com.eleven.jpromiserdemo.MainActivity,内存泄漏Activity</item>
+        <item>activity:com.eleven.jpromiserdemo.Main2Activity,正常Activity</item>
+        <!--<item>com.eleven.rvadapterdemo.BlankFragment,切换fragment</item>-->
+        <item>com.eleven.jpromiserdemo.TestItemFragment,通用测试</item>
+    </string-array>
 </resources>

@@ -1,4 +1,4 @@
-package com.eleven.jpromiser.blockUI;
+package com.eleven.jpromiser.blockUI.base;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,5 +1,8 @@
 package com.eleven.jpromiser.blockUI;
 
+import com.eleven.jpromiser.blockUI.base.IBlockFragment;
+import com.eleven.jpromiser.blockUI.base.IBlockUI;
+
 /**
  * Created by 正 on 2016/9/5.
  *
@@ -16,10 +19,12 @@ public class JBlockUI extends IBlockUI {
     public static JBlockUI newInstance(String loadingMessage, IBlockFragment f){
         return new JBlockUI(loadingMessage, f);
     }
-//    public JBlockUI setFragment(IBlockFragment f){
-//        mIBlockFragment = f;
-//        return this;
-//    }
+    public static JBlockUI newInstance(String loadingMessage){
+        return new JBlockUI(loadingMessage, new JBlockFragment());
+    }
+    public static JBlockUI newInstance(){
+        return new JBlockUI("loading", new JBlockFragment());
+    }
     public JBlockUI setMessage(String loadingMessage){
         this.message = loadingMessage;
         return this;
