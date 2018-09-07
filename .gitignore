@@ -1,3 +1,4 @@
+# /elevenTools
 *.iml
 .gradle
 /local.properties
@@ -9,7 +10,7 @@
 /captures
 .externalNativeBuild
 
-/.idea/
+/.idea
 
 # Built application files
 *.apk

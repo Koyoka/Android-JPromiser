@@ -1,1 +1,1 @@
-include ':app', ':JPromiser'
+include ':app', ':JPromiser', ':HttpVolleyPromiser'

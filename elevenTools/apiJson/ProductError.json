@@ -1,0 +1,21 @@
+{
+  "apiPath": "Android-JPromiser/master/rawJson/productError.json",
+  "controller": "rawJsonTest",
+  "method": "get",
+  "req":null,
+  "res": {
+    "State": 0,
+    "Message": "",
+    "Content": {
+      "total": 200.5,
+      "item": [{
+        "qty": 1,
+        "desc": "",
+        "cost": 3.5
+      }]
+    }
+  }
+}
+
+
+
