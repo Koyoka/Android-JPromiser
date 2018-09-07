@@ -1,0 +1,19 @@
+{
+  "state":0,
+  "message":"",
+  "content":{
+    "total":200.5,
+    "item":[
+      {
+        "qty": 10,
+        "desc":"item-1",
+        "cost": 2.5
+      },
+      {
+        "qty": 1,
+        "desc":"item-2",
+        "cost": 3.5
+      }
+    ]
+  }
+}
