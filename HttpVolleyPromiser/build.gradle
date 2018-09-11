@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 27
 
 
 
@@ -24,7 +24,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:25.4.0'
+//    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     api 'com.mcxiaoke.volley:library:1.0.19'
     api 'com.google.code.gson:gson:2.8.0'
 //    implementation 'com.mcxiaoke.volley:library:1.0.19'
