@@ -12,8 +12,15 @@ android {
     }
     buildTypes {
         release {
+            //zip优化
+            zipAlignEnabled true
+            //移除无用的resource
+//            shrinkResources true
+            //混淆
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            aaptOptions.cruncherEnabled = false
+            aaptOptions.useNewCruncher = false
         }
     }
     compileOptions {
