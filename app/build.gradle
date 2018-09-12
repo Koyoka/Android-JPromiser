@@ -19,13 +19,13 @@ android {
             //混淆
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            aaptOptions.cruncherEnabled = false
-//            aaptOptions.useNewCruncher = false
+            aaptOptions.cruncherEnabled = false
+            aaptOptions.useNewCruncher = false
         }
-//        debug {
-//            aaptOptions.cruncherEnabled = false
-//            aaptOptions.useNewCruncher = false
-//        }
+        debug {
+            aaptOptions.cruncherEnabled = false
+            aaptOptions.useNewCruncher = false
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
