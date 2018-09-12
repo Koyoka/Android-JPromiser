@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public abstract class BaseProxy {
 
-    protected final String SERVICE_ERROR_DATA = "service error";
+//    protected final String SERVICE_ERROR_DATA = "service error";
 //    public String globalDefaultHost = "";
     protected ProviderContext mPContext;
     //========== setting provider context =====================================

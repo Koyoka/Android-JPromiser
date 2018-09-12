@@ -85,8 +85,10 @@ public class WebApiVolleyHelper implements IProxyDataProvider {
 
     private static WebApiVolleyHelper mVolleyHelp;
     private RequestQueue mRequestQueue = null;
+    private String mTag;
     public WebApiVolleyHelper(Context context, String tags){
         mRequestQueue = Volley.newRequestQueue(context);
+        mTag = tags;
     }
 
     public void setTimeOut(int second){
@@ -103,8 +105,9 @@ public class WebApiVolleyHelper implements IProxyDataProvider {
     }
 
     public static WebApiVolleyHelper sharedRequestQueue() throws NullPointerException{
-        if(mVolleyHelp == null || mVolleyHelp.getRequestQueue() == null)
+        if(mVolleyHelp == null || mVolleyHelp.getRequestQueue() == null) {
             throw new NullPointerException("Please init RequestQueue object first!");
+        }
         return mVolleyHelp;
     }
 
@@ -149,7 +152,9 @@ public class WebApiVolleyHelper implements IProxyDataProvider {
      * core: 构建Volley调用队列
      * */
     protected Promiser buildVolleyPromiser(final ProviderContext pContext,
-                                           final String method, final BaseHttpGetModelDto gInput, final BaseModelDto pInput,
+                                           final String method,
+                                           final BaseHttpGetModelDto gInput,
+                                           final BaseModelDto pInput,
                                            final IHttpHelperListener l){
 
         Promiser $q = new Promiser() {
@@ -510,8 +515,9 @@ public class WebApiVolleyHelper implements IProxyDataProvider {
     protected JSONObject getPostJsonObject(ProviderContext pContext,BaseModelDto pInput) throws JSONException {
 
         String input = "";
-        if(pInput != null)
+        if(pInput != null) {
             input = GsonHelper.createGson(pContext.getDateTimeFormat()).toJson(pInput);
+        }
 
         JSONObject jsonObject;
         if(input.length() != 0){
@@ -565,10 +571,15 @@ public class WebApiVolleyHelper implements IProxyDataProvider {
         logStr.add("│ method:" + method);
         logStr.add("│ host  :" + host);
         if(header != null && header.size() != 0){
-            for (String key : header.keySet()) {
-                String value = header.get(key);
+            for (Map.Entry<String,String> entry : header.entrySet()) {
+                String value = entry.getValue();
+                String key = entry.getKey();
                 logStr.add("│ header_key:" + key + " header_value:" + value);
             }
+//            for (String key : header.keySet()) {
+//                String value = header.get(key);
+//                logStr.add("│ header_key:" + key + " header_value:" + value);
+//            }
         }else{
             logStr.add("│ header: null");
         }
@@ -585,29 +596,34 @@ public class WebApiVolleyHelper implements IProxyDataProvider {
 
     public static class ErrorHelper{
 
-        public static final String no_internet = "无网络连接";
-        public static final String generic_server_down = "连接服务器失败";
-        public static final String generic_error = "网络异常,请稍后再试";
+        public static final String NO_INTERNET = "无网络连接";
+        public static final String GENERIC_SERVER_DOWN = "连接服务器失败";
+        public static final String GENERIC_ERROR = "网络异常,请稍后再试";
+
+        ErrorHelper(){}
 
         public static String getMessage(Object error) {
-            if(error == null)
-                return generic_server_down;
+            if(error == null) {
+                return GENERIC_SERVER_DOWN;
+            }
 
             if (error instanceof TimeoutError) {
-                return "TimeoutError: "+generic_server_down;
+                return "TimeoutError: "+ GENERIC_SERVER_DOWN;
             } else if (isServerProblem(error)) {
                 String errMsg = handleServerError(error);
-                return errMsg!=null?errMsg:generic_server_down;
+                return errMsg!=null?errMsg: GENERIC_SERVER_DOWN;
             } else if (isNetworkProblem(error)) {
                 String msg = "";
                 if(error instanceof NetworkError){
                     msg = "NetworkError: "+((NetworkError)error).getMessage();
-                }else if(error instanceof NoConnectionError){
+                }
+
+                if(error instanceof NoConnectionError){
                     msg = "NoConnectionError: "+((NoConnectionError)error).getMessage();
                 }
-                return no_internet + ":"+msg;
+                return NO_INTERNET + ":"+msg;
             }
-            return generic_error;
+            return GENERIC_ERROR;
         }
 
         private static boolean isNetworkProblem(Object error) {
@@ -625,35 +641,36 @@ public class WebApiVolleyHelper implements IProxyDataProvider {
 
             NetworkResponse response = error.networkResponse;
 
-            if (response != null) {
-                switch (response.statusCode) {
-                    case 404:
-                    case 422:
-                    case 401:
-                        try {
-                            // server might return error like this { "error":
-                            // "Some error occured" }
-                            // Use "Gson" to parse the result
-                            HashMap<String, String> result = new Gson().fromJson(
-                                    new String(response.data),
-                                    new TypeToken<Map<String, String>>() {
-                                    }.getType());
-
-                            if (result != null && result.containsKey("error")) {
-                                return result.get("error");
-                            }
-
-                        } catch (Exception e) {
-//                            e.printStackTrace();
-                        }
-                        // invalid request
-                        return error.getMessage();
-
-                    default:
-                        return "code:" + response.statusCode + " " +generic_server_down;
-                }
+            if(response == null){
+                return GENERIC_ERROR;
             }
-            return generic_error;
+            switch (response.statusCode) {
+                case 404:
+                case 422:
+                case 401:
+                    try {
+                        // server might return error like this { "error":
+                        // "Some error occured" }
+                        // Use "Gson" to parse the result
+                        HashMap<String, String> result = new Gson().fromJson(
+                                new String(response.data,"utf-8"),
+                                new TypeToken<Map<String, String>>() {
+                                }.getType());
+
+                        if (result != null && result.containsKey("error")) {
+                            return result.get("error");
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    // invalid request
+                    return error.getMessage();
+
+                default:
+                    return "code:" + response.statusCode + " " + GENERIC_SERVER_DOWN;
+            }
+
         }
     }
 

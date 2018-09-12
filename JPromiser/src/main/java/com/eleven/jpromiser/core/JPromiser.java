@@ -79,11 +79,13 @@ public abstract class JPromiser<T,U> {
     private OnPromiseThen mAfterNotify;
     protected Deffered<T,U> mDeffered;
 
+    private static final String STACK_TAG = "Promiser-Track";
+    private static final String STACK_TAG_MESSAGE = "new & run JPromiser Stack!!!";
 
     String trackDebug = "";
     public JPromiser(){
         if(DEBUG_SHOW_STACK){
-            trackDebug = DebugWatcher.fullStack("Promiser-Track","new & run JPromiser Stack!!!");
+            trackDebug = DebugWatcher.fullStack(STACK_TAG,STACK_TAG_MESSAGE);
         }
 
         mDeffered = new Deffered<T,U>(this);
@@ -92,7 +94,7 @@ public abstract class JPromiser<T,U> {
     public JPromiser<T,U> run(OnPromiseThen then,OnPromiseResult<T> success,OnPromiseResult<U> error){
         if(DEBUG_SHOW_STACK){
             try{
-                Log.i("Promiser-Track", trackDebug);
+                Log.i(STACK_TAG, trackDebug);
             }catch (Exception ex){
                 System.out.print(trackDebug);
             }
@@ -107,7 +109,7 @@ public abstract class JPromiser<T,U> {
     public JPromiser<T,U> runAfter(OnPromiseThen then,OnPromiseResult<T> success,OnPromiseResult<U> error){
         if(DEBUG_SHOW_STACK){
             try{
-                Log.i("Promiser-Track", trackDebug);
+                Log.i(STACK_TAG, trackDebug);
             }catch (Exception ex){
                 System.out.print(trackDebug);
             }
@@ -122,7 +124,7 @@ public abstract class JPromiser<T,U> {
     public void run(){
         if(DEBUG_SHOW_STACK){
             try{
-                Log.i("Promiser-Track", trackDebug);
+                Log.i(STACK_TAG, trackDebug);
             }catch (Exception ex){
                 System.out.print(trackDebug);
             }
@@ -298,6 +300,7 @@ public abstract class JPromiser<T,U> {
         }
         //region debug
         public ArrayList<String> debugInfo;
+        private static final String WALLET_TAG = "Promiser-WalletData";
         private void putDebugInfo(String message){
             if(debugInfo == null){
                 debugInfo = new ArrayList<>();
@@ -316,7 +319,7 @@ public abstract class JPromiser<T,U> {
                 for (String msg :
                         debugInfo) {
                     try{
-                        Log.i("Promiser-WalletData", msg);
+                        Log.i(WALLET_TAG, msg);
                     }catch (Exception ex){
                         System.out.print(msg);
                     }
@@ -341,9 +344,9 @@ public abstract class JPromiser<T,U> {
                                 )  + "]";
                         String callMethod = "com.eleven.jpromiser.core.JPromiser$JWallet.putExtra";
                         String transInfo =
-                                DebugWatcher.codeTrack("Promiser-WalletData", message, callMethod, 1,true);
+                                DebugWatcher.codeTrack(WALLET_TAG, message, callMethod, 1);
                         try{
-                            Log.i("Promiser-WalletData", transInfo);
+                            Log.i(WALLET_TAG, transInfo);
                         }catch (Exception ex){
                             System.out.print(transInfo);
                         }

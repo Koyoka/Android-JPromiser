@@ -6,7 +6,6 @@ package com.eleven.httpvolleypromiser.proxy.checker;
  */
 
 public class HttpResultCheckFactory {
-    //TODO: 初始化checker
     static IHttpResultCheck mChecker = null;
     public static IHttpResultCheck getChecker(){
         return mChecker;

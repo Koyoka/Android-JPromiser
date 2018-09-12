@@ -27,9 +27,9 @@ public class JPromiserQueue {
     }
 
     private Promiser curPromiser;
-    private Promiser getCurPromiser(){
-        return curPromiser;
-    }
+//    private Promiser getCurPromiser(){
+//        return curPromiser;
+//    }
 
     /**
      * 异步队列执行

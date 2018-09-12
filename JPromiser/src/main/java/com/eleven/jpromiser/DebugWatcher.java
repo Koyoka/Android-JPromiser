@@ -39,24 +39,26 @@ public class DebugWatcher {
         );
         return sb.toString();
     }
-    public static String codeTrack(String TAG, String message, int index, boolean print){
-        StringBuilder sb = new StringBuilder();
-        sb.append("\r\n"+
-                "┌─ " + TAG + " ───────────────────────────┐");
-        sb.append("\r\n"+
-                "│ " +
-                message);
-        sb.append("\r\n"+
-                "│ " +
-                Thread.currentThread().getStackTrace()[index].toString());
-        sb.append("\r\n"+
-                "└────────────────────────────────────────┘"
-        );
-        if(print)
-            System.out.print(sb.toString());
-        return sb.toString();
-    }
-    public static String codeTrack(String TAG, String message, String callMethod, int offsetIndex, boolean print){
+
+//    public static String codeTrack(String TAG, String message, int index, boolean print){
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("\r\n"+
+//                "┌─ " + TAG + " ───────────────────────────┐");
+//        sb.append("\r\n"+
+//                "│ " +
+//                message);
+//        sb.append("\r\n"+
+//                "│ " +
+//                Thread.currentThread().getStackTrace()[index].toString());
+//        sb.append("\r\n"+
+//                "└────────────────────────────────────────┘"
+//        );
+//        if(print)
+//            System.out.print(sb.toString());
+//        return sb.toString();
+//    }
+
+    public static String codeTrack(String TAG, String message, String callMethod, int offsetIndex){
 
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         int callMethodStackIndex = 0;

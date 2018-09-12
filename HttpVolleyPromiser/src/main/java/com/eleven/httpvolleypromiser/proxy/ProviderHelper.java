@@ -53,12 +53,21 @@ public class ProviderHelper {
 
     private static StringBuilder getQueryString(Map<String,String> urlQuerys){
         StringBuilder sb = new StringBuilder();
-        for (String key : urlQuerys.keySet()){
-            String val = urlQuerys.get(key);
+
+        for (Map.Entry<String,String> entry : urlQuerys.entrySet()){
+            String key = entry.getKey();
+            String val = entry.getValue();
             if(!TextUtils.isEmpty(val)){
                 sb.append(key).append("=").append(val).append("&");
             }
+
         }
+//        for (String key : urlQuerys.keySet()){
+//            String val = urlQuerys.get(key);
+//            if(!TextUtils.isEmpty(val)){
+//                sb.append(key).append("=").append(val).append("&");
+//            }
+//        }
         return sb;
     }
 
